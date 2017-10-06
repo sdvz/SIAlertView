@@ -45,7 +45,8 @@
 
 - (IBAction)alert1:(id)sender
 {
-    SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:@"Title1" andMessage:@"Count down"];
+    SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:@"Title1" andMessage:@"Your weight based on a weighted moving average. Weight tends to fluctuate; this estimate attempts to see through those insignificant changes. Your weight based on a weighted moving average. Weight tends to fluctuate; this estimate attempts to see through those insignificant changes.Your weight based on a weighted moving average. Weight tends to fluctuate; this estimate attempts to see through those insignificant changes.Your weight based on a weighted moving average. Weight tends to fluctuate; this estimate attempts to see through those insignificant changes."];
+//    alertView.messageLabelTextAlignment = NSTextAlignmentLeft;
     [alertView addButtonWithTitle:@"Button1"
                              type:SIAlertViewButtonTypeDefault
                           handler:^(SIAlertView *alertView) {

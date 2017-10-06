@@ -44,6 +44,7 @@ typedef void(^SIAlertViewHandler)(SIAlertView *alertView);
 
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *message;
+@property (nonatomic, assign) NSTextAlignment messageLabelTextAlignment;
 
 @property (nonatomic, assign) SIAlertViewTransitionStyle transitionStyle; // default is SIAlertViewTransitionStyleSlideFromBottom
 @property (nonatomic, assign) SIAlertViewBackgroundStyle backgroundStyle; // default is SIAlertViewBackgroundStyleGradient

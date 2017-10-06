@@ -51,6 +51,7 @@ static SIAlertView *__si_alert_current_view;
 @property (nonatomic, strong) UILabel *messageLabel;
 @property (nonatomic, strong) UIView *containerView;
 @property (nonatomic, strong) NSMutableArray *buttons;
+@property (nonatomic, strong) NSNumber *messageAlignment;
 
 @property (nonatomic, assign, getter = isLayoutDirty) BOOL layoutDirty;
 
@@ -846,13 +847,14 @@ static SIAlertView *__si_alert_current_view;
         #ifdef __IPHONE_7_0
             NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
             paragraphStyle.lineBreakMode = self.messageLabel.lineBreakMode;
+        paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
             
             NSDictionary *attributes = @{NSFontAttributeName:self.messageLabel.font,
                                          NSParagraphStyleAttributeName: paragraphStyle.copy};
             
             // NSString class method: boundingRectWithSize:options:attributes:context is
             // available only on ios7.0 sdk.
-            CGRect rect = [self.titleLabel.text boundingRectWithSize:CGSizeMake(CONTAINER_WIDTH - CONTENT_PADDING_LEFT * 2, maxHeight)
+            CGRect rect = [self.message boundingRectWithSize:CGSizeMake(CONTAINER_WIDTH - CONTENT_PADDING_LEFT * 2, maxHeight)
                                                              options:NSStringDrawingUsesLineFragmentOrigin
                                                           attributes:attributes
                                                              context:nil];
@@ -937,7 +939,7 @@ static SIAlertView *__si_alert_current_view;
     if (self.message) {
         if (!self.messageLabel) {
             self.messageLabel = [[UILabel alloc] initWithFrame:self.bounds];
-            self.messageLabel.textAlignment = NSTextAlignmentCenter;
+            self.messageLabel.textAlignment = self.messageAlignment ? self.messageAlignment.integerValue : NSTextAlignmentCenter;
             self.messageLabel.backgroundColor = [UIColor clearColor];
             self.messageLabel.font = self.messageFont;
             self.messageLabel.textColor = self.messageColor;
@@ -1006,6 +1008,11 @@ static SIAlertView *__si_alert_current_view;
 	[button addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
     
     return button;
+}
+
+-(void)setMessageLabelTextAlignment:(NSTextAlignment)messageLabelTextAlignment {
+    _messageLabelTextAlignment = messageLabelTextAlignment;
+    self.messageAlignment = @(messageLabelTextAlignment);
 }
 
 #pragma mark - Actions
